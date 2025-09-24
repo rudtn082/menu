@@ -16,7 +16,7 @@
     body{
       margin:0; background:var(--bg); color:var(--ink);
       font-family:"East Sea Dokdo", sans-serif;
-      line-height:1.55;
+      line-height:1.55; overflow: hidden;
     }
     html,body{height:100%}
     .viewport{display:flex; justify-content:center; padding:16px}
@@ -25,7 +25,7 @@
       box-shadow:var(--ring); display:flex; flex-direction:column; overflow:hidden;
     }
     .header{
-      display:flex; justify-content:space-between; align-items:center; padding:20px;
+      display:flex; flex-direction: column; justify-content:space-between; padding:20px;
       border-bottom:1px solid var(--rule);
     }
     .brand{display:flex; flex-direction:column}
@@ -39,7 +39,7 @@
     }
     .flag[aria-current="true"]{border-color:var(--accent); box-shadow:0 0 0 2px var(--accent) inset}
     .flag svg{width:24px; height:16px; border-radius:2px}
-    .content{padding:20px; overflow:auto;height: calc(100vh - 225px);}
+    .content{padding:20px; overflow:auto;height: calc(100vh - 250px);}
     .notice{font-family: "Noto Sans KR", sans-serif;border:1px dashed var(--accent); padding:8px; text-align:center; margin-bottom:14px}
     .section-title{margin:30px 0 10px; font-size:2rem; font-weight:bold}
     .menu-list{font-family: "Noto Sans KR", sans-serif;list-style:none; padding:0; margin:0}
@@ -55,24 +55,25 @@
       <header class="header">
         <div class="brand">
           <div class="logo">마전터</div>
-          <div class="subtitle" data-i18n="subtitle">정성 가득한 한 끼</div>
-        </div>
-        <nav class="lang">
-          <button class="flag" data-lang="ko" aria-current="true">
-            <svg viewBox="0 0 24 16"><rect width="24" height="16" fill="#fff"/><circle cx="12" cy="8" r="4.5" fill="#c60c30"/><path d="M12 3.5a4.5 4.5 0 0 0 0 9 4.5 4.5 0 0 0 0-9z" fill="#003478"/></svg><span>KO</span>
-          </button>
-          <button class="flag" data-lang="ja">
-            <svg viewBox="0 0 24 16"><rect width="24" height="16" fill="#fff"/><circle cx="12" cy="8" r="5" fill="#bc002d"/></svg><span>JA</span>
-          </button>
-          <button class="flag" data-lang="zh">
-            <svg viewBox="0 0 24 16"><rect width="24" height="16" fill="#de2910"/><polygon fill="#ffde00" points="5,2 6,5 9,5 6.5,7 7.5,10 5,8.5 2.5,10 3.5,7 1,5 4,5"/></svg><span>ZH</span>
-          </button>
-          <button class="flag" data-lang="en">
-            <svg viewBox="0 0 24 16"><rect width="24" height="16" fill="#b22234"/><g fill="#fff"><rect width="24" height="1.8" y="1.8"/><rect width="24" height="1.8" y="5.4"/><rect width="24" height="1.8" y="9"/><rect width="24" height="1.8" y="12.6"/></g><rect width="10" height="7" fill="#3c3b6e"/></svg><span>EN</span>
-          </button>
-        </nav>
-      </header>
-
+          <div style="display: flex;justify-content: space-between;flex-wrap: wrap;">
+            <div class="subtitle" data-i18n="subtitle">정성 가득한 한 끼</div>
+            <nav class="lang">
+              <button class="flag" data-lang="ko" aria-current="true">
+                <svg viewBox="0 0 24 16"><rect width="24" height="16" fill="#fff"/><circle cx="12" cy="8" r="4.5" fill="#c60c30"/><path d="M12 3.5a4.5 4.5 0 0 0 0 9 4.5 4.5 0 0 0 0-9z" fill="#003478"/></svg><span>KO</span>
+              </button>
+              <button class="flag" data-lang="ja">
+                <svg viewBox="0 0 24 16"><rect width="24" height="16" fill="#fff"/><circle cx="12" cy="8" r="5" fill="#bc002d"/></svg><span>JA</span>
+              </button>
+              <button class="flag" data-lang="zh">
+                <svg viewBox="0 0 24 16"><rect width="24" height="16" fill="#de2910"/><polygon fill="#ffde00" points="5,2 6,5 9,5 6.5,7 7.5,10 5,8.5 2.5,10 3.5,7 1,5 4,5"/></svg><span>ZH</span>
+              </button>
+              <button class="flag" data-lang="en">
+                <svg viewBox="0 0 24 16"><rect width="24" height="16" fill="#b22234"/><g fill="#fff"><rect width="24" height="1.8" y="1.8"/><rect width="24" height="1.8" y="5.4"/><rect width="24" height="1.8" y="9"/><rect width="24" height="1.8" y="12.6"/></g><rect width="10" height="7" fill="#3c3b6e"/></svg><span>EN</span>
+              </button>
+            </nav>
+          </div>
+          </div>
+        </header>
       <section class="content">
         <p class="notice" data-i18n="happy">점심특선: 양념꽃게장 + 순두부 10,000원 (12:00–15:00)</p>
 
