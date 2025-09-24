@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Oktoberfest Menu</title>
+  <style>
+    /* ---- Design tokens ---- */
+    :root{
+      --bg: #efe6d8;        /* 전체 배경 톤 */
+      --paper: #f8f5ee;     /* 메뉴 배경 */
+      --ink: #1f1f1f;
+      --muted: #5c5c5c;
+      --rule: #d6cbb8;
+      --accent: #b0956b;
+      --ring: 0 0 0 1.5px rgba(0,0,0,.06), 0 10px 30px rgba(0,0,0,.08);
+    }
+
+    /* ---- Global reset ---- */
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
+      line-height: 1.45;
+    }
+
+    /* ---- App layout: full-viewport grid ---- */
+    .viewport {
+      height: 100vh;            /* 풀창 */
+      width: 100%;
+      display: grid;
+      grid-template-columns: 40% 60%;
+      gap: 0;
+    }
+
+    /* Left visual panel (image) */
+    .visual{
+      background-image: url('https://images.unsplash.com/photo-1542219550-37153d387c5a?q=80&w=1600&auto=format&fit=crop'); /* 예시 이미지 */
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      isolation: isolate;
+    }
+    .visual::after{
+      /* 은은한 비네팅 */
+      content:"";
+      position:absolute; inset:0;
+      background: radial-gradient(120% 120% at 20% 20%, transparent 40%, rgba(0,0,0,.25) 100%);
+      z-index:0;
+    }
+    .visual-badge{
+      position:absolute; top:1.25rem; right:1.25rem;
+      background: rgba(248,245,238,.9);
+      border: 1px solid var(--rule);
+      padding:.5rem .75rem;
+      border-radius: 999px;
+      font-size:.9rem;
+      letter-spacing:.08em;
+    }
+
+    /* Right content panel */
+    .menu-paper{
+      background: var(--paper);
+      padding: clamp(16px, 2.2vw, 32px);
+      overflow: auto;   /* 내용 스크롤 */
+      box-shadow: var(--ring);
+    }
+
+    /* Header */
+    .brand{
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 1rem;
+    }
+    .logo{
+      font-weight: 800;
+      letter-spacing:.12em;
+      font-size: clamp(28px, 5vw, 64px);
+      line-height: 1;
+    }
+    .mark{
+      border:1px solid var(--ink);
+      border-radius: 999px;
+      padding: .35rem .6rem;
+      font-size: .9rem;
+      letter-spacing:.12em;
+    }
+    .subtitle{
+      margin-top:.25rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing:.12em;
+      font-size: clamp(.85rem, 1.4vw, 1rem);
+    }
+
+    /* Divider */
+    .rule{
+      height:1px; background: var(--rule); margin: 1.25rem 0;
+    }
+
+    /* Happy hour banner */
+    .happy{
+      text-align:center;
+      font-style: italic;
+      padding:.75rem 1rem;
+      border:1px dashed var(--accent);
+      background: #fbf9f3;
+      border-radius: .5rem;
+      font-size: clamp(.95rem, 1.6vw, 1.05rem);
+    }
+
+    /* Menu sections */
+    .section{
+      margin-top: 1.25rem;
+    }
+    .section h2{
+      margin:.25rem 0 1rem;
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      letter-spacing:.08em;
+      text-transform: none;
+      font-weight: 700;
+    }
+
+    /* Menu list */
+    .item{
+      display:grid;
+      grid-template-columns: 1fr auto;
+      align-items:flex-start;
+      gap:.4rem 1rem;
+      padding:.65rem 0;
+    }
+    .item-title{
+      font-weight: 700;
+      font-size: clamp(1rem, 1.8vw, 1.15rem);
+    }
+    .item-price{
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .item-desc{
+      grid-column: 1 / -1;
+      color: var(--muted);
+      font-size: clamp(.88rem, 1.5vw, .98rem);
+    }
+
+    /* Beer list (compact) */
+    .beers { display: grid; gap:.5rem; }
+    .beer{
+      display:grid; grid-template-columns: 1fr auto; gap:.25rem 1rem;
+      font-size: clamp(.95rem, 1.6vw, 1.05rem);
+    }
+    .beer small{ color: var(--muted); margin-left:.25rem; }
+
+    /* Footer space for nicer scroll end */
+    .spacer{ height: 1rem; }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 1100px){
+      .viewport{ grid-template-columns: 35% 65%; }
+    }
+    @media (max-width: 900px){
+      .viewport{
+        grid-template-columns: 1fr;           /* 세로 스택 */
+        grid-auto-rows: auto;
+      }
+      .visual{ height: 36vh; }                /* 모바일/태블릿 상단 비주얼 높이 */
+      .menu-paper{ height: 64vh; }
+      .brand{ align-items: flex-start; }
+      .mark{ font-size: .8rem; }
+    }
+    @media (max-width: 480px){
+      .visual{ height: 34vh; }
+      .menu-paper{ height: 66vh; padding: 14px; }
+      .happy{ font-size: .92rem; }
+      .item{ gap:.35rem .75rem; }
+    }
+
+    /* Optional: nice scrollbars on desktop */
+    @media (hover: hover){
+      .menu-paper::-webkit-scrollbar{ width:10px; }
+      .menu-paper::-webkit-scrollbar-thumb{ background:#d6cbb8; border-radius:6px; }
+      .menu-paper::-webkit-scrollbar-track{ background: #f2ede3; }
+    }
+  </style>
+</head>
+<body>
+  <main class="viewport">
+    <!-- Left: Visual panel (replace image URL if needed) -->
+    <aside class="visual" aria-hidden="true">
+      <div class="visual-badge">C / N</div>
+    </aside>
+
+    <!-- Right: Menu content -->
+    <section class="menu-paper" role="document" aria-label="Oktoberfest Menu">
+      <header class="brand" aria-label="Branding">
+        <h1 class="logo">MENU</h1>
+        <div class="mark">C / N</div>
+      </header>
+      <div class="subtitle">SPECIAL MENU FOR OKTOBERFEST</div>
+
+      <div class="rule"></div>
+      <p class="happy">Happy hours: <strong>20% discount</strong> for all menu <strong>12:00 – 15:00</strong></p>
+      <div class="rule"></div>
+
+      <section class="section" aria-labelledby="food">
+        <h2 id="food">Food</h2>
+
+        <article class="item">
+          <div class="item-title">Soft Bavarian Pretzels</div>
+          <div class="item-price">€14,50</div>
+          <p class="item-desc">Seasoned with assorted spices, or all sea-salt, served with honey mustard and house-made beer cheese sauce.</p>
+        </article>
+
+        <article class="item">
+          <div class="item-title">Hot Spinach Artichoke Dip</div>
+          <div class="item-price">€11,90</div>
+          <p class="item-desc">House specialty made with 3 cheeses and served with crostini, fresh fried tortilla chips, and fresh veggie sticks.</p>
+        </article>
+
+        <article class="item">
+          <div class="item-title">Hummus and Pita Plate</div>
+          <div class="item-price">€17,00</div>
+          <p class="item-desc">Classic and roasted red pepper hummus duo, served with naan bread, fresh fried tortilla chips, and fresh veggie sticks.</p>
+        </article>
+
+        <article class="item">
+          <div class="item-title">Caesar Salad</div>
+          <div class="item-price">€17,50</div>
+          <p class="item-desc">Crisp Romaine, Caesar dressing, shaved Parmesan and multi-grain croutons.</p>
+        </article>
+
+        <article class="item">
+          <div class="item-title">German Brats and Kraut</div>
+          <div class="item-price">€21,20</div>
+          <p class="item-desc">Bratwurst, European-style kraut, stone ground mustard and rye bread.</p>
+        </article>
+      </section>
+
+      <section class="section" aria-labelledby="beer">
+        <h2 id="beer">Beer</h2>
+        <div class="beers">
+          <div class="beer">
+            <div>Lager beer <small>(330ml / 500ml)</small></div>
+            <div>€4 / €5</div>
+          </div>
+          <div class="beer">
+            <div>Pale beer <small>(330ml / 500ml)</small></div>
+            <div>€5,50 / €7</div>
+          </div>
+          <div class="beer">
+            <div>Dark beer <small>(330ml / 500ml)</small></div>
+            <div>€4,90 / €6</div>
+          </div>
+        </div>
+      </section>
+
+      <div class="spacer"></div>
+    </section>
+  </main>
+</body>
+</html>
