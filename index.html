@@ -1,136 +1,464 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <!-- Google Font -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&family=Gowun+Dodum&display=swap" rel="stylesheet">
   <title>마전터</title>
   <style>
-    :root{
-      --bg:#efe6d8; --paper:#f8f5ee; --ink:#1c1c1c; --muted:#636363;
-      --rule:#decfb6; --accent:#b0956b; --ring:0 10px 28px rgba(0,0,0,.08);
+    /* =====================
+       Hanok White Theme
+       ===================== */
+    :root {
+      --bg: #ffffff;
+      /* 전체 바탕 - 화이트 */
+      --paper: #ffffff;
+      /* 카드/종이 - 화이트 */
+      --ink: #1a1a1a;
+      /* 본문 글색 */
+      --muted: #6e6e6e;
+      /* 보조 텍스트 */
+      --rule: #e9e4da;
+      /* 구분선 (담백한 베이지) */
+      --wood: #8b5e34;
+      /* 목재 포인트 (기둥/대문 느낌) */
+      --accent: #b4936a;
+      /* 단아한 포인트 */
+      --ring: 0 10px 28px rgba(0, 0, 0, .04);
     }
-    body{
-      margin:0; background:var(--bg); color:var(--ink);
-      font-family:"East Sea Dokdo", sans-serif;
-      line-height:1.55; overflow: hidden;
+
+    html,
+    body {
+      height: 100%
     }
-    html,body{height:100%}
-    .viewport{display:flex; justify-content:center; padding:16px}
-    .paper{
-      background:var(--paper); width:100%; max-width:1100px; border-radius:18px;
-      box-shadow:var(--ring); display:flex; flex-direction:column; overflow:hidden;
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Gowun Dodum", system-ui, -apple-system, "Noto Sans KR", sans-serif;
+      line-height: 1.6;
+      overflow: hidden;
+      /* 한지 질감 느낌: 아주 미세한 섬유 패턴 */
+      background-image:
+        repeating-linear-gradient(90deg, rgba(0, 0, 0, .02) 0 1px, transparent 1px 3px),
+        repeating-linear-gradient(0deg, rgba(0, 0, 0, .012) 0 1px, transparent 1px 4px);
+      background-size: auto;
     }
-    .header{
-      display:flex; flex-direction: column; justify-content:space-between; padding:20px;
-      border-bottom:1px solid var(--rule);
+
+    .viewport {
+      display: flex;
+      justify-content: center;
+      padding: 18px;
+      height: 100%;
+      box-sizing: border-box;
     }
-    .brand{display:flex; flex-direction:column}
-    .logo{font-weight:900; font-size:3.5rem}
-    .subtitle{color:var(--muted);font-family: "Noto Sans KR", sans-serif;}
-    .lang{display:flex; gap:8px}
-    .flag{
-      display:inline-flex; align-items:center; gap:6px;
-      padding:4px 8px; border:1px solid var(--rule); border-radius:6px; background:#fff;
-      cursor:pointer;
+
+    .paper {
+      background: var(--paper);
+      width: 100%;
+      border-radius: 14px;
+      box-shadow: var(--ring);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 4px double var(--ink);
+      padding: 15px;
     }
-    .flag[aria-current="true"]{border-color:var(--accent); box-shadow:0 0 0 2px var(--accent) inset}
-    .flag svg{width:24px; height:16px; border-radius:2px}
-    .content{padding:20px; overflow:auto;height: calc(100vh - 250px);}
-    .notice{font-family: "Noto Sans KR", sans-serif;border:1px dashed var(--accent); padding:8px; text-align:center; margin-bottom:14px}
-    .section-title{margin:30px 0 10px; font-size:2rem; font-weight:bold}
-    .menu-list{font-family: "Noto Sans KR", sans-serif;list-style:none; padding:0; margin:0}
-    .menu-item{display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #eee4d3}
-    .menu-item:last-child{border-bottom:none}
-    .price{white-space:nowrap; font-weight:bold}
-    .desc{color:var(--muted); font-size:1rem; margin-top:2px; margin-bottom:15px;}
+
+    /* ======= Header / Brand ======= */
+    .header {
+      position: relative;
+      padding: 18px 20px 12px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 6px
+    }
+
+    .titleBox {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+
+    }
+
+    .logo {
+      font-family: "Gowun Dodum", cursive;
+      font-size: 72px;
+      letter-spacing: 2px;
+      line-height: 1;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 15px;
+      font-style: italic;
+    }
+
+    /* ======= Top Row ======= */
+    .toprow {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 12px;
+      flex-wrap: wrap
+    }
+
+    .lang {
+      display: flex;
+      gap: 8px
+    }
+
+    .flag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      padding: 6px 10px;
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .flag[aria-current="true"] {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px color-mix(in hsl, var(--accent) 30%, transparent) inset
+    }
+
+    .flag svg {
+      width: 18px;
+      height: 12px;
+      border-radius: 2px
+    }
+
+    /* ======= Content ======= */
+    .content {
+      padding: 20px 20px 26px;
+      overflow: auto;
+      height: calc(100dvh - 180px)
+    }
+
+    .notice {
+      border: 1px dashed var(--rule);
+      padding: 10px 12px;
+      text-align: center;
+      margin: 0 0 18px;
+      font-size: 18px;
+      background: linear-gradient(transparent, rgba(0, 0, 0, .02));
+      border-radius: 10px
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      margin: 26px 0 10px;
+      font-size: 45px;
+      font-family: "East Sea Dokdo", cursive;
+      letter-spacing: 10px;
+      font-weight: 100;
+    }
+
+    .section-title:before,
+    .section-title:after {
+      content: "";
+      flex: 1;
+      height: 4px;
+      background: var(--rule);
+    }
+
+    .section-title span {
+      white-space: nowrap
+    }
+
+    .menu-list {
+      list-style: none;
+      padding: 0;
+      margin: 0
+    }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0ece4
+    }
+
+    .menu-item:last-of-type {
+      border-bottom: none
+    }
+
+    .menu-item span:first-child {
+      font-size: 23px
+    }
+
+    .price {
+      white-space: nowrap;
+      font-weight: 700;
+      font-size: 19px;
+    }
+
+    .desc {
+      color: var(--muted);
+      font-size: 15px;
+      margin: 4px 0 14px 0;
+    }
+
+    /* 섹션 블록 간 여백과 얇은 목재 라인 */
+    .section-block {
+      padding-left: 14px
+    }
+
+    /* ======= Small screen ======= */
+    @media (max-width:720px) {
+      .logo {
+        font-size: 56px
+      }
+
+      .content {
+        height: calc(100vh - 170px)
+      }
+    }
+
+    /* Mobile/Tablet responsive tweaks */
+    @supports not (height: 100dvh) {
+      .content {
+        height: calc(100vh - 180px);
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .viewport {
+        padding: 12px;
+      }
+
+      .logo {
+        font-size: 60px;
+      }
+
+      .paper {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .logo {
+        font-size: 48px
+      }
+
+      .flag {
+        padding: 8px 12px;
+      }
+
+      .menu-item {
+        padding: 8px 0;
+      }
+
+      .menu-item span:first-child {
+        font-size: 15px
+      }
+
+      .content {
+        padding: 16px 16px 22px;
+      }
+    }
   </style>
 </head>
+
 <body>
   <main class="viewport">
     <div class="paper">
       <header class="header">
         <div class="brand">
-          <div class="logo">마전터</div>
-          <div style="display: flex;justify-content: space-between;flex-wrap: wrap;">
-            <div class="subtitle" data-i18n="subtitle">정성 가득한 한 끼</div>
+          <div class="toprow">
+            <div class="titleBox">
+              <div class="logo">마전터</div>
+              <div class="subtitle" data-i18n="subtitle">정성 가득한 한 끼</div>
+            </div>
             <nav class="lang">
               <button class="flag" data-lang="ko" aria-current="true">
-                <svg viewBox="0 0 24 16"><rect width="24" height="16" fill="#fff"/><circle cx="12" cy="8" r="4.5" fill="#c60c30"/><path d="M12 3.5a4.5 4.5 0 0 0 0 9 4.5 4.5 0 0 0 0-9z" fill="#003478"/></svg><span>KO</span>
+                <svg viewBox="0 0 24 16">
+                  <rect width="24" height="16" fill="#fff" />
+                  <circle cx="12" cy="8" r="4.5" fill="#c60c30" />
+                  <path d="M12 3.5a4.5 4.5 0 0 0 0 9 4.5 4.5 0 0 0 0-9z" fill="#003478" />
+                </svg><span>KO</span>
               </button>
               <button class="flag" data-lang="ja">
-                <svg viewBox="0 0 24 16"><rect width="24" height="16" fill="#fff"/><circle cx="12" cy="8" r="5" fill="#bc002d"/></svg><span>JA</span>
+                <svg viewBox="0 0 24 16">
+                  <rect width="24" height="16" fill="#fff" />
+                  <circle cx="12" cy="8" r="5" fill="#bc002d" />
+                </svg><span>JA</span>
               </button>
               <button class="flag" data-lang="zh">
-                <svg viewBox="0 0 24 16"><rect width="24" height="16" fill="#de2910"/><polygon fill="#ffde00" points="5,2 6,5 9,5 6.5,7 7.5,10 5,8.5 2.5,10 3.5,7 1,5 4,5"/></svg><span>ZH</span>
+                <svg viewBox="0 0 24 16">
+                  <rect width="24" height="16" fill="#de2910" />
+                  <polygon fill="#ffde00" points="5,2 6,5 9,5 6.5,7 7.5,10 5,8.5 2.5,10 3.5,7 1,5 4,5" />
+                </svg><span>ZH</span>
               </button>
               <button class="flag" data-lang="en">
-                <svg viewBox="0 0 24 16"><rect width="24" height="16" fill="#b22234"/><g fill="#fff"><rect width="24" height="1.8" y="1.8"/><rect width="24" height="1.8" y="5.4"/><rect width="24" height="1.8" y="9"/><rect width="24" height="1.8" y="12.6"/></g><rect width="10" height="7" fill="#3c3b6e"/></svg><span>EN</span>
+                <svg viewBox="0 0 24 16">
+                  <rect width="24" height="16" fill="#b22234" />
+                  <g fill="#fff">
+                    <rect width="24" height="1.8" y="1.8" />
+                    <rect width="24" height="1.8" y="5.4" />
+                    <rect width="24" height="1.8" y="9" />
+                    <rect width="24" height="1.8" y="12.6" />
+                  </g>
+                  <rect width="10" height="7" fill="#3c3b6e" />
+                </svg><span>EN</span>
               </button>
             </nav>
           </div>
-          </div>
-        </header>
+        </div>
+      </header>
+
       <section class="content">
         <p class="notice" data-i18n="happy">점심특선: 양념꽃게장 + 순두부 10,000원 (12:00–15:00)</p>
 
         <!-- 식사류 -->
-        <h2 class="section-title" data-i18n="sectionMeal">식사류</h2>
-        <ul class="menu-list">
-          <li class="menu-item"><span data-i18n="beefSoup_name">쇠고기국밥</span><span class="price" data-i18n="beefSoup_price">11,000원</span></li>
-          <li class="desc" data-i18n="beefSoup_desc">진한 사골 육수에 소고기와 콩나물이 어우러져...</li>
-          <li class="menu-item"><span data-i18n="pollockHangover_name">황태해장국</span><span class="price" data-i18n="pollockHangover_price">9,000원</span></li>
-          <li class="desc" data-i18n="pollockHangover_desc">자극 없이 깔끔한 국물의 황태 해장국...</li>
-          <li class="menu-item"><span data-i18n="pollockBibimbap_name">황태야채비빔밥과 순두부</span><span class="price" data-i18n="pollockBibimbap_price">11,000원</span></li>
-          <li class="desc" data-i18n="pollockBibimbap_desc">황태살과 아삭한 채소가 어우러진 비빔밥...</li>
-        </ul>
+        <h2 class="section-title"><span data-i18n="sectionMeals">식사류</span></h2>
+        <div class="section-block">
+          <ul class="menu-list">
+
+            <li class="menu-item">
+              <span data-i18n="beefSoup_name">소고기 국밥</span>
+              <span class="price" data-i18n="beefSoup_price">12,000원</span>
+            </li>
+            <li class="desc" data-i18n="beefSoup_desc">소고기와 여러 재료를 넣고 장시간 끓인 뒤 콩나물과 다시 한번 끓여낸 국밥</li>
+
+            <li class="menu-item">
+              <span data-i18n="pollockHangover_name">황태해장국</span>
+              <span class="price" data-i18n="pollockHangover_price">10,000원</span>
+            </li>
+            <li class="desc" data-i18n="pollockHangover_desc">콩나물과 마른 명태로 맑게 끓인 해장국</li>
+
+            <li class="menu-item">
+              <span data-i18n="pollockBibimbap_name">황태야채비빔밥</span>
+              <span class="price" data-i18n="pollockBibimbap_price">12,000원</span>
+            </li>
+            <li class="desc" data-i18n="pollockBibimbap_desc">각종 야채와 날치알, 마른 명태살 등을 넣어 비벼 먹는 비빔밥</li>
+
+            <li class="menu-item">
+              <span data-i18n="octopusRice_name">낙지덮밥</span>
+              <span class="price" data-i18n="octopusRice_price">16,000원</span>
+            </li>
+            <li class="desc" data-i18n="octopusRice_desc">매콤하게 볶은 낙지를 밥 위에 올린 덮밥</li>
+
+            <li class="menu-item">
+              <span data-i18n="softTofuStew_name">순두부찌개</span>
+              <span class="price" data-i18n="softTofuStew_price">10,000원</span>
+            </li>
+            <li class="desc" data-i18n="softTofuStew_desc">부드러운 순두부와 야채, 얼큰한 양념으로 끓인 찌개</li>
+
+            <li class="menu-item">
+              <span data-i18n="soyMilkNoodles_name">콩국수</span>
+              <span class="price" data-i18n="soyMilkNoodles_price">10,000원</span>
+            </li>
+            <li class="desc" data-i18n="soyMilkNoodles_desc">곱게 간 콩국에 국수를 말아 먹는 여름 별미 (하절기)</li>
+
+          </ul>
+        </div>
 
         <!-- 게장류 -->
-        <h2 class="section-title" data-i18n="sectionCrab">게장류</h2>
-        <ul class="menu-list">
-          <li class="menu-item"><span data-i18n="soyCrab_name">간장꽃게장과 알밥</span><span class="price" data-i18n="soyCrab_price">25,000원</span></li>
-          <li class="desc" data-i18n="soyCrab_desc">간장 양념이 배어든 꽃게장과 알밥</li>
-          <li class="menu-item"><span data-i18n="spicyCrab_name">양념꽃게장+순두부</span><span class="price" data-i18n="spicyCrab_price">17,000원</span></li>
-          <li class="desc" data-i18n="spicyCrab_desc">매콤 달달한 양념 꽃게와 순두부</li>
-          <li class="menu-item"><span data-i18n="lunchSet_name">점심특선 양념꽃게장+순두부</span><span class="price" data-i18n="lunchSet_price">10,000원</span></li>
-          <li class="desc" data-i18n="lunchSet_desc">낮 시간 가성비 좋은 세트</li>
-        </ul>
+        <h2 class="section-title"><span data-i18n="sectionCrab">게장류</span></h2>
+        <div class="section-block">
+          <ul class="menu-list">
+            <li class="menu-item">
+              <span data-i18n="spicyCrab_name">양념게장</span>
+              <span class="price" data-i18n="spicyCrab_price">20,000원</span>
+            </li>
+            <li class="desc" data-i18n="spicyCrab_desc">손질한 게를 매콤한 양념으로 버무린 게장</li>
+
+            <li class="menu-item">
+              <span data-i18n="soyCrab_name">간장게장</span>
+              <span class="price" data-i18n="soyCrab_price">30,000원</span>
+            </li>
+            <li class="desc" data-i18n="soyCrab_desc">간장과 향신 재료를 끓여 식힌 뒤 게를 넣어 숙성한 게장</li>
+
+          </ul>
+        </div>
 
         <!-- 해물류 -->
-        <h2 class="section-title" data-i18n="sectionSeafood">해물류</h2>
-        <ul class="menu-list">
-          <li class="menu-item"><span data-i18n="grilledPollock_name">황태구이</span><span class="price" data-i18n="grilledPollock_price">11,000원</span></li>
-          <li class="desc" data-i18n="grilledPollock_desc">겉은 바삭 속은 촉촉</li>
-          <li class="menu-item"><span data-i18n="steamedPollock_name">황태찜</span><span class="price" data-i18n="steamedPollock_price">11,000원</span></li>
-          <li class="desc" data-i18n="steamedPollock_desc">양념 스며든 황태찜</li>
-          <li class="menu-item"><span data-i18n="stirOctopus_name">낙지볶음</span><span class="price" data-i18n="stirOctopus_price">30,000원</span></li>
-          <li class="desc" data-i18n="stirOctopus_desc">쫄깃한 낙지 매콤 볶음</li>
-        </ul>
+        <h2 class="section-title"><span data-i18n="sectionSeafood">해물류</span></h2>
+        <div class="section-block">
+          <ul class="menu-list">
+            <li class="menu-item">
+              <span data-i18n="grilledPollock_name">황태 구이</span>
+              <span class="price" data-i18n="grilledPollock_price">12,000원</span>
+            </li>
+            <li class="desc" data-i18n="grilledPollock_desc">양념에 버무린 황태를 바삭하게 구운 생선 요리</li>
 
-        <!-- 사이드 -->
-        <h2 class="section-title" data-i18n="sectionSide">사이드</h2>
-        <ul class="menu-list">
-          <li class="menu-item"><span data-i18n="acorn_name">도토리묵</span><span class="price" data-i18n="acorn_price">10,000원</span></li>
-          <li class="desc" data-i18n="acorn_desc">고소한 도토리묵과 양념장</li>
-          <li class="menu-item"><span data-i18n="bossamM_name">보쌈 (중)</span><span class="price" data-i18n="bossamM_price">30,000원</span></li>
-          <li class="desc" data-i18n="bossamM_desc">부드러운 수육과 김치</li>
-          <li class="menu-item"><span data-i18n="bossamL_name">보쌈 (대)</span><span class="price" data-i18n="bossamL_price">40,000원</span></li>
-          <li class="desc" data-i18n="bossamL_desc">부드러운 수육과 김치</li>
-        </ul>
+            <li class="menu-item">
+              <span data-i18n="stirOctopus_name">낙지볶음</span>
+              <span class="price" data-i18n="stirOctopus_price">35,000원</span>
+            </li>
+            <li class="desc" data-i18n="stirOctopus_desc">낙지를 매콤한 양념에 볶아낸 요리</li>
+          </ul>
+        </div>
 
         <!-- 전류 -->
-        <h2 class="section-title" data-i18n="sectionJeon">전류</h2>
-        <ul class="menu-list">
-          <li class="menu-item"><span data-i18n="pajeon_name">파전</span><span class="price" data-i18n="pajeon_price">15,000원</span></li>
-          <li class="desc" data-i18n="pajeon_desc">해물과 쪽파 전</li>
-          <li class="menu-item"><span data-i18n="fishJeon_name">생선전</span><span class="price" data-i18n="fishJeon_price">20,000원</span></li>
-          <li class="desc" data-i18n="fishJeon_desc">얇게 부친 생선전</li>
-          <li class="menu-item"><span data-i18n="pollockJeon_name">황태전</span><span class="price" data-i18n="pollockJeon_price">20,000원</span></li>
-          <li class="desc" data-i18n="pollockJeon_desc">황태살 전</li>
-        </ul>
+        <h2 class="section-title"><span data-i18n="sectionJeon">전류</span></h2>
+        <div class="section-block">
+          <ul class="menu-list">
+            <li class="menu-item">
+              <span data-i18n="pollockJeon_name">황태전</span>
+              <span class="price" data-i18n="pollockJeon_price">25,000원</span>
+            </li>
+            <li class="desc" data-i18n="pollockJeon_desc">황태살과 부침가루, 달걀로 부쳐낸 전</li>
+
+            <li class="menu-item">
+              <span data-i18n="pajeon_name">파전</span>
+              <span class="price" data-i18n="pajeon_price">15,000원</span>
+            </li>
+            <li class="desc" data-i18n="pajeon_desc">파와 해물을 넣어 바삭하게 부친 전</li>
+
+            <li class="menu-item">
+              <span data-i18n="fishJeon_name">생선전</span>
+              <span class="price" data-i18n="fishJeon_price">25,000원</span>
+            </li>
+            <li class="desc" data-i18n="fishJeon_desc">대구/동태살을 얇게 부쳐 담백하게 즐기는 전</li>
+
+            <li class="menu-item">
+              <span data-i18n="oysterJeon_name">굴전</span>
+              <span class="price" data-i18n="oysterJeon_price">25,000원</span>
+            </li>
+            <li class="desc" data-i18n="oysterJeon_desc">통통한 굴을 부침가루와 달걀로 부친 전 (동절기)</li>
+          </ul>
+        </div>
+
+        <!-- 사이드 -->
+        <h2 class="section-title"><span data-i18n="sectionSide">사이드</span></h2>
+        <div class="section-block">
+          <ul class="menu-list">
+            <li class="menu-item">
+              <span data-i18n="acorn_name">도토리묵 무침</span>
+              <span class="price" data-i18n="acorn_price">12,000원</span>
+            </li>
+            <li class="desc" data-i18n="acorn_desc">말랑한 도토리묵을 갖은 양념과 채소로 무친 냉채</li>
+
+            <li class="menu-item">
+              <span data-i18n="bossamM_name">보쌈 (중)</span>
+              <span class="price" data-i18n="bossamM_price">40,000원</span>
+            </li>
+            <li class="desc" data-i18n="bossamM_desc">부드럽게 삶은 수육과 곁들임 채소를 함께 즐기는 보쌈</li>
+
+            <li class="menu-item">
+              <span data-i18n="bossamL_name">보쌈 (대)</span>
+              <span class="price" data-i18n="bossamL_price">50,000원</span>
+            </li>
+            <li class="desc" data-i18n="bossamL_desc">넉넉한 양의 수육과 곁들임 채소를 함께 즐기는 보쌈</li>
+          </ul>
+        </div>
       </section>
     </div>
   </main>
@@ -139,282 +467,321 @@
     // 다국어 사전
     const I18N = {
       ko: {
-        subtitle: "정성 가득한 한 끼",
-        happy: "점심특선: 양념꽃게장 + 순두부 10,000원 (12:00–15:00)",
-        sectionFood: "메뉴",
+        sectionMeals: "식사류",
+        sectionCrab: "게장류",
+        sectionSeafood: "해물류",
+        sectionJeon: "전류",
+        sectionSide: "사이드",
 
-        beefSoup_name: "쇠고기국밥",
-        beefSoup_desc: "진한 사골 육수에 소고기와 콩나물이 어우러져 담백하고 부드러운 맛을 느낄 수 있는 한 그릇",
-        beefSoup_price: "11,000원",
+        beefSoup_name: "소고기 국밥",
+        beefSoup_desc: "소고기와 여러 가지 재료를 넣고 장시간 끓인 후 콩나물과 다시 한 번 끓여서 나온 음식",
+        beefSoup_price: "12,000원",
 
         pollockHangover_name: "황태해장국",
-        pollockHangover_desc: "자극 없이 깔끔한 국물의 황태 해장국, 속 풀기에 좋은 건강한 한 끼",
-        pollockHangover_price: "9,000원",
+        pollockHangover_desc: "콩나물과 마른 명태로 맑게 끓인 음식",
+        pollockHangover_price: "10,000원",
 
-        pollockBibimbap_name: "황태야채비빔밥과 순두부",
-        pollockBibimbap_desc: "고소한 황태살과 아삭한 채소가 어우러진 비빔밥 + 부드럽고 담백한 순두부",
-        pollockBibimbap_price: "11,000원",
+        pollockBibimbap_name: "황태야채비빔밥",
+        pollockBibimbap_desc: "각종 야채와 날치알과 마른 명태살 등을 넣고 먹는 비빔밥",
+        pollockBibimbap_price: "12,000원",
 
-        soyCrab_name: "간장꽃게장과 알밥",
-        soyCrab_desc: "담백하면서도 깊은 간장 양념이 배어든 꽃게장, 촉촉한 알밥과 함께 즐기는 정성 한 상",
-        soyCrab_price: "25,000원",
+        octopusRice_name: "낙지덮밥",
+        octopusRice_desc: "매콤한 양념에 볶은 낙지를 밥 위에 덮어서 나오는 음식",
+        octopusRice_price: "16,000원",
 
-        spicyCrab_name: "양념꽃게장 + 순두부",
-        spicyCrab_desc: "매콤하고 달달한 양념이 꽃게에 잘 배어든 메뉴, 순두부와 조화롭게 어울리는 세트",
-        spicyCrab_price: "17,000원",
+        softTofuStew_name: "순두부찌개",
+        softTofuStew_desc: "부드러운 순두부와 야채와 얼큰한 양념으로 끓인 음식",
+        softTofuStew_price: "10,000원",
 
-        lunchSet_name: "점심특선 양념꽃게장 + 순두부",
-        lunchSet_desc: "낮 시간에 가성비 있게 즐길 수 있는 세트 메뉴, 양념 게장과 순두부가 균형감 있게 조화됨",
-        lunchSet_price: "10,000원",
+        soyMilkNoodles_name: "콩국수",
+        soyMilkNoodles_desc: "콩을 간 차가운 물에 국수를 넣어 만든 음식 (하절기)",
+        soyMilkNoodles_price: "10,000원",
 
-        grilledPollock_name: "황태구이",
-        grilledPollock_desc: "겉은 바삭하고 속은 촉촉하게 구운 황태, 고소한 풍미가 일품",
-        grilledPollock_price: "11,000원",
+        spicyCrab_name: "양념게장",
+        spicyCrab_desc: "게를 손질해 매콤한 양념으로 무친 음식",
+        spicyCrab_price: "20,000원",
 
-        steamedPollock_name: "황태찜",
-        steamedPollock_desc: "양념이 스며든 촉촉한 황태찜, 입맛 돋우는 감칠 맛",
-        steamedPollock_price: "11,000원",
+        soyCrab_name: "간장게장",
+        soyCrab_desc: "간장과 여러 재료를 넣고 끓이고 식힌 후 게를 넣고 숙성하여 만든 음식",
+        soyCrab_price: "30,000원",
+
+        grilledPollock_name: "황태 구이",
+        grilledPollock_desc: "명태에 여러 가지 양념으로 무쳐서 구운 생선 음식",
+        grilledPollock_price: "12,000원",
 
         stirOctopus_name: "낙지볶음",
-        stirOctopus_desc: "쫄깃한 낙지를 매콤하게 볶아낸 별미, 술 안주 또는 밥 반찬으로도 훌륭한 선택",
-        stirOctopus_price: "30,000원",
+        stirOctopus_desc: "낙지를 매콤한 양념에 볶아 만든 음식",
+        stirOctopus_price: "35,000원",
 
-        acorn_name: "도토리묵",
-        acorn_desc: "고소한 도토리묵에 새콤한 양념장을 더해 깔끔하게 즐길 수 있는 담백한 한 접시",
-        acorn_price: "10,000원",
-
-        bossamM_name: "보쌈 (중)",
-        bossamM_desc: "부드럽게 익은 수육과 새콤/아삭한 김치를 함께 즐기는 전통 보쌈",
-        bossamM_price: "30,000원",
-
-        bossamL_name: "보쌈 (대)",
-        bossamL_desc: "부드럽게 익은 수육과 새콤/아삭한 김치를 함께 즐기는 전통 보쌈",
-        bossamL_price: "40,000원",
+        pollockJeon_name: "황태전",
+        pollockJeon_desc: "황태살과 부침가루, 계란 등으로 만든 부침요리",
+        pollockJeon_price: "25,000원",
 
         pajeon_name: "파전",
-        pajeon_desc: "해물과 쪽파가 어우러진 반죽, 겉은 바삭하고 속은 촉촉한 전통의 맛",
+        pajeon_desc: "파와 해물을 넣고 밀가루 반죽과 계란 등으로 만든 부침요리",
         pajeon_price: "15,000원",
 
         fishJeon_name: "생선전",
-        fishJeon_desc: "신선한 생선을 얇게 부쳐 담백한 맛으로 즐기는 전통 전",
-        fishJeon_price: "20,000원",
+        fishJeon_desc: "대구나 동태살과 부침가루, 계란 등으로 만든 부침요리",
+        fishJeon_price: "25,000원",
 
-        pollockJeon_name: "황태전",
-        pollockJeon_desc: "부드러운 황태 살을 전으로 부쳐낸 고소하고 담백한 전",
-        pollockJeon_price: "20,000원",
-      },
+        oysterJeon_name: "굴전",
+        oysterJeon_desc: "굴과 부침가루, 계란 등으로 만든 부침요리 (동절기)",
+        oysterJeon_price: "25,000원",
 
-      ja: {
-        subtitle: "心を込めた一膳",
-        happy: "ランチ特選：ヤンニョムケジャン＋純豆腐 10,000ウォン（12:00–15:00）",
-        sectionFood: "メニュー",
+        acorn_name: "도토리묵 무침",
+        acorn_desc: "도토리 가루를 젤리처럼 만들어 갖은 양념과 채소로 무쳐 먹는 음식",
+        acorn_price: "12,000원",
+
+        bossamM_name: "보쌈 (중)",
+        bossamM_desc: "돼지고기를 여러가지 재료와 삶아 낸 음식",
+        bossamM_price: "40,000원",
+
+        bossamL_name: "보쌈 (대)",
+        bossamL_desc: "돼지고기를 여러가지 재료와 삶아 낸 음식",
+        bossamL_price: "50,000원",
+      }
+      , ja: {
+        sectionMeals: "食事類",
+        sectionCrab: "カニ醤類",
+        sectionSeafood: "海鮮類",
+        sectionJeon: "チヂミ類",
+        sectionSide: "サイド",
 
         beefSoup_name: "牛肉クッパ",
-        beefSoup_desc: "濃厚な骨スープに牛肉と豆もやしが調和した、あっさり優しい一杯",
-        beefSoup_price: "11,000ウォン",
+        beefSoup_desc: "牛肉と様々な材料を長時間煮込み、その後もやしを入れてもう一度煮込んだ料理",
+        beefSoup_price: "12,000ウォン",
 
-        pollockHangover_name: "干しスケトウダラのヘジャングク",
-        pollockHangover_desc: "刺激の少ない澄んだスープで、胃にやさしい一品",
-        pollockHangover_price: "9,000ウォン",
+        pollockHangover_name: "干しスケトウダラの解酒スープ",
+        pollockHangover_desc: "豆もやしと干し明太で澄んだ味に煮込んだ料理",
+        pollockHangover_price: "10,000ウォン",
 
-        pollockBibimbap_name: "干しスケトウダラ野菜ビビンバ＋純豆腐",
-        pollockBibimbap_desc: "香ばしい干しダラとシャキシャキ野菜のビビンバに、まろやかな純豆腐を添えて",
-        pollockBibimbap_price: "11,000ウォン",
+        pollockBibimbap_name: "干しダラ野菜ビビンバ",
+        pollockBibimbap_desc: "様々な野菜、トビッコ、干しダラの身などを混ぜて食べるビビンバ",
+        pollockBibimbap_price: "12,000ウォン",
 
-        soyCrab_name: "醤油ケジャンと卵ご飯",
-        soyCrab_desc: "旨味深い醤油ダレが染みたワタリガニを、しっとり卵ご飯とともに",
-        soyCrab_price: "25,000ウォン",
+        octopusRice_name: "タコ丼",
+        octopusRice_desc: "辛く炒めたタコをご飯の上にのせた料理",
+        octopusRice_price: "16,000ウォン",
 
-        spicyCrab_name: "ヤンニョムケジャン＋純豆腐",
-        spicyCrab_desc: "甘辛ダレがよく染みたカニと、やさしい純豆腐の相性が抜群",
-        spicyCrab_price: "17,000ウォン",
+        softTofuStew_name: "スンドゥブチゲ",
+        softTofuStew_desc: "柔らかい豆腐と野菜、辛い調味で煮込んだ料理",
+        softTofuStew_price: "10,000ウォン",
 
-        lunchSet_name: "ランチ特選 ヤンニョムケジャン＋純豆腐",
-        lunchSet_desc: "昼にお得に楽しめるセット。味のバランスも◎",
-        lunchSet_price: "10,000ウォン",
+        soyMilkNoodles_name: "豆乳麺（コングクス）",
+        soyMilkNoodles_desc: "挽いた豆を冷たい水で溶かしたスープに麺を入れた料理（夏季）",
+        soyMilkNoodles_price: "10,000ウォン",
 
-        grilledPollock_name: "干しスケトウダラの焼き物",
-        grilledPollock_desc: "外はカリッと中はしっとり、香ばしさが際立つ一品",
-        grilledPollock_price: "11,000ウォン",
+        spicyCrab_name: "ヤンニョムケジャン",
+        spicyCrab_desc: "下処理したカニを辛いヤンニョムで和えた料理",
+        spicyCrab_price: "20,000ウォン",
 
-        steamedPollock_name: "干しスケトウダラの蒸し煮",
-        steamedPollock_desc: "タレがじんわり染み込んだ、旨味たっぷりの蒸し煮",
-        steamedPollock_price: "11,000ウォン",
+        soyCrab_name: "カンジャンケジャン",
+        soyCrab_desc: "醤油と様々な材料を煮て冷まし、カニを入れて熟成させた料理",
+        soyCrab_price: "30,000ウォン",
 
-        stirOctopus_name: "タコ炒め（ナクチポックム）",
-        stirOctopus_desc: "コリコリ食感のタコをピリ辛に炒めた逸品。お酒にもご飯にも",
-        stirOctopus_price: "30,000ウォン",
+        grilledPollock_name: "黄太焼き",
+        grilledPollock_desc: "明太を様々な調味料で和えて焼いた魚料理",
+        grilledPollock_price: "12,000ウォン",
 
-        acorn_name: "どんぐり寒天（ムク）",
-        acorn_desc: "香ばしいムクに酸味の効いたタレを合わせ、さっぱりと",
-        acorn_price: "10,000ウォン",
+        stirOctopus_name: "タコ炒め",
+        stirOctopus_desc: "タコを辛い調味で炒めた料理",
+        stirOctopus_price: "35,000ウォン",
 
-        bossamM_name: "ポッサム（中）",
-        bossamM_desc: "柔らかいゆで豚と酸味・食感が心地よいキムチの伝統料理",
-        bossamM_price: "30,000ウォン",
+        pollockJeon_name: "黄太ジョン",
+        pollockJeon_desc: "黄太の身と粉、卵で作ったジョン料理",
+        pollockJeon_price: "25,000ウォン",
 
-        bossamL_name: "ポッサム（大）",
-        bossamL_desc: "柔らかいゆで豚と酸味・食感が心地よいキムチの伝統料理",
-        bossamL_price: "40,000ウォン",
-
-        pajeon_name: "ネギチヂミ（パジョン）",
-        pajeon_desc: "海鮮と青ねぎ入り。外はカリッ、中はもっちり",
+        pajeon_name: "ネギチヂミ",
+        pajeon_desc: "ネギと海鮮を入れ、小麦粉生地と卵で作ったチヂミ",
         pajeon_price: "15,000ウォン",
 
-        fishJeon_name: "白身魚のジョン",
-        fishJeon_desc: "新鮮な魚を薄衣で焼き上げた、あっさりした味わい",
-        fishJeon_price: "20,000ウォン",
+        fishJeon_name: "魚のチヂミ",
+        fishJeon_desc: "タラやスケトウダラを粉と卵で薄く焼いた料理",
+        fishJeon_price: "25,000ウォン",
 
-        pollockJeon_name: "干しダラのジョン",
-        pollockJeon_desc: "やわらかな干しダラを香ばしく焼いた上品なジョン",
-        pollockJeon_price: "20,000ウォン",
+        oysterJeon_name: "カキのチヂミ",
+        oysterJeon_desc: "カキを衣と卵で焼いた料理（冬季）",
+        oysterJeon_price: "25,000ウォン",
+
+        acorn_name: "どんぐり寒天和え",
+        acorn_desc: "どんぐり粉をゼリー状にし、調味料と野菜で和えた料理",
+        acorn_price: "12,000ウォン",
+
+        bossamM_name: "ポッサム（中）",
+        bossamM_desc: "豚肉をさまざまな材料と一緒に茹でた料理",
+        bossamM_price: "40,000ウォン",
+
+        bossamL_name: "ポッサム（大）",
+        bossamL_desc: "豚肉をさまざまな材料と一緒に茹でた料理",
+        bossamL_price: "50,000ウォン",
       },
-
       zh: {
-        subtitle: "用心烹制的一餐",
-        happy: "午市特选：辣酱蟹＋嫩豆腐 10,000韩元（12:00–15:00）",
-        sectionFood: "菜单",
+        sectionMeals: "主食类",
+        sectionCrab: "酱蟹类",
+        sectionSeafood: "海鲜类",
+        sectionJeon: "煎饼类",
+        sectionSide: "小菜",
 
         beefSoup_name: "牛肉汤饭",
-        beefSoup_desc: "浓郁骨汤配牛肉与豆芽，口感清淡柔和的一碗",
-        beefSoup_price: "11,000韩元",
+        beefSoup_desc: "将牛肉和多种材料长时间熬煮，然后加入豆芽再次煮制的食物",
+        beefSoup_price: "12,000韩元",
 
         pollockHangover_name: "黄太解酒汤",
-        pollockHangover_desc: "清爽无负担的汤底，适合暖胃解酒的健康选择",
-        pollockHangover_price: "9,000韩元",
+        pollockHangover_desc: "用豆芽和风干明太鱼清炖的食物",
+        pollockHangover_price: "10,000韩元",
 
-        pollockBibimbap_name: "黄太蔬菜拌饭＋嫩豆腐",
-        pollockBibimbap_desc: "香嫩黄太肉与脆爽蔬菜拌饭，搭配柔滑嫩豆腐",
-        pollockBibimbap_price: "11,000韩元",
+        pollockBibimbap_name: "黄太蔬菜拌饭",
+        pollockBibimbap_desc: "加入各种蔬菜、飞鱼籽和风干明太鱼肉拌着吃的拌饭",
+        pollockBibimbap_price: "12,000韩元",
 
-        soyCrab_name: "酱蟹＋鱼卵拌饭",
-        soyCrab_desc: "酱油腌制入味的花蟹，配上湿润的鱼卵拌饭，精致一餐",
-        soyCrab_price: "25,000韩元",
+        octopusRice_name: "辣炒章鱼盖饭",
+        octopusRice_desc: "将辣炒章鱼盖在米饭上的食物",
+        octopusRice_price: "16,000韩元",
 
-        spicyCrab_name: "辣酱蟹＋嫩豆腐",
-        spicyCrab_desc: "甜辣酱汁渗入蟹肉，与嫩豆腐相得益彰",
-        spicyCrab_price: "17,000韩元",
+        softTofuStew_name: "嫩豆腐锅",
+        softTofuStew_desc: "用嫩豆腐、蔬菜和辣味调料煮成的食物",
+        softTofuStew_price: "10,000韩元",
 
-        lunchSet_name: "午市特选 辣酱蟹＋嫩豆腐",
-        lunchSet_desc: "午间高性价比套餐，辣酱蟹与嫩豆腐均衡搭配",
-        lunchSet_price: "10,000韩元",
+        soyMilkNoodles_name: "豆浆面",
+        soyMilkNoodles_desc: "研磨的豆加冷水做成的汤里放入面条（夏季）",
+        soyMilkNoodles_price: "10,000韩元",
+
+        spicyCrab_name: "辣酱腌蟹",
+        spicyCrab_desc: "将处理好的螃蟹用辣酱拌制的食物",
+        spicyCrab_price: "20,000韩元",
+
+        soyCrab_name: "酱油腌蟹",
+        soyCrab_desc: "用酱油和多种材料熬煮冷却后腌制螃蟹制成的食物",
+        soyCrab_price: "30,000韩元",
 
         grilledPollock_name: "烤黄太鱼",
-        grilledPollock_desc: "外脆里嫩，香气浓郁",
-        grilledPollock_price: "11,000韩元",
+        grilledPollock_desc: "将明太鱼用多种调料腌制后烤制的鱼类食物",
+        grilledPollock_price: "12,000韩元",
 
-        steamedPollock_name: "炖黄太鱼",
-        steamedPollock_desc: "酱汁渗透的细嫩口感，鲜美开胃",
-        steamedPollock_price: "11,000韩元",
+        stirOctopus_name: "辣炒章鱼",
+        stirOctopus_desc: "用辣调料炒制的章鱼料理",
+        stirOctopus_price: "35,000韩元",
 
-        stirOctopus_name: "炒章鱼",
-        stirOctopus_desc: "弹牙章鱼香辣快炒，下酒下饭皆宜",
-        stirOctopus_price: "30,000韩元",
+        pollockJeon_name: "黄太鱼煎饼",
+        pollockJeon_desc: "用黄太鱼肉、粉和鸡蛋制成的煎饼",
+        pollockJeon_price: "25,000韩元",
 
-        acorn_name: "橡子凉粉",
-        acorn_desc: "香醇凉粉配酸辣酱汁，清爽不腻",
-        acorn_price: "10,000韩元",
-
-        bossamM_name: "烫五花肉（中）",
-        bossamM_desc: "软嫩猪肉搭配爽口泡菜的传统吃法",
-        bossamM_price: "30,000韩元",
-
-        bossamL_name: "烫五花肉（大）",
-        bossamL_desc: "软嫩猪肉搭配爽口泡菜的传统吃法",
-        bossamL_price: "40,000韩元",
-
-        pajeon_name: "葱煎饼（海鲜）",
-        pajeon_desc: "海鲜与大葱相融，外脆内嫩",
+        pajeon_name: "葱煎饼",
+        pajeon_desc: "加入葱和海鲜，用面糊和鸡蛋制作的煎饼",
         pajeon_price: "15,000韩元",
 
-        fishJeon_name: "鱼煎",
-        fishJeon_desc: "新鲜鱼片薄裹煎制，清淡可口",
-        fishJeon_price: "20,000韩元",
+        fishJeon_name: "鱼肉煎饼",
+        fishJeon_desc: "用鳕鱼或明太鱼肉与面糊、鸡蛋制作的煎饼",
+        fishJeon_price: "25,000韩元",
 
-        pollockJeon_name: "黄太鱼煎",
-        pollockJeon_desc: "细嫩黄太鱼制成的香煎小食",
-        pollockJeon_price: "20,000韩元",
+        oysterJeon_name: "牡蛎煎饼",
+        oysterJeon_desc: "用牡蛎与面糊和鸡蛋制作的煎饼（冬季）",
+        oysterJeon_price: "25,000韩元",
+
+        acorn_name: "拌橡子凉粉",
+        acorn_desc: "将橡子粉做成果冻状，与调味料和蔬菜拌制的食物",
+        acorn_price: "12,000韩元",
+
+        bossamM_name: "烫猪肉包菜（中）",
+        bossamM_desc: "将猪肉与多种材料一起煮制的食物",
+        bossamM_price: "40,000韩元",
+
+        bossamL_name: "烫猪肉包菜（大）",
+        bossamL_desc: "将猪肉与多种材料一起煮制的食物",
+        bossamL_price: "50,000韩元",
       },
-
       en: {
-        subtitle: "A wholesome Korean meal",
-        happy: "Lunch Special: Spicy Marinated Crab + Soft Tofu ₩10,000 (12:00–15:00)",
-        sectionFood: "Menu",
+        sectionMeals: "Meals",
+        sectionCrab: "Marinated Crab",
+        sectionSeafood: "Seafood",
+        sectionJeon: "Korean Pancakes",
+        sectionSide: "Side Dishes",
 
-        beefSoup_name: "Beef Gukbap (Beef Soup with Rice)",
-        beefSoup_desc: "Rich bone broth with beef and bean sprouts for a clean, gentle flavor",
-        beefSoup_price: "₩11,000",
+        beefSoup_name: "Beef Gukbap",
+        beefSoup_desc: "Beef with various ingredients simmered for a long time, then boiled again with bean sprouts",
+        beefSoup_price: "₩12,000",
 
-        pollockHangover_name: "Dried Pollock Hangover Soup",
-        pollockHangover_desc: "Clear, non-spicy broth—comforting and easy on the stomach",
-        pollockHangover_price: "₩9,000",
+        pollockHangover_name: "Pollock Hangover Soup",
+        pollockHangover_desc: "Clear soup boiled with bean sprouts and dried pollock",
+        pollockHangover_price: "₩10,000",
 
-        pollockBibimbap_name: "Pollock Veg Bibimbap + Soft Tofu",
-        pollockBibimbap_desc: "Nutty pollock with crisp veggies bibimbap plus smooth, mild soft tofu",
-        pollockBibimbap_price: "₩11,000",
+        pollockBibimbap_name: "Pollock Vegetable Bibimbap",
+        pollockBibimbap_desc: "Mixed rice with assorted vegetables, flying fish roe, and dried pollock",
+        pollockBibimbap_price: "₩12,000",
 
-        soyCrab_name: "Soy-Marinated Crab & Roe Rice",
-        soyCrab_desc: "Delicately seasoned ganjang gejang paired with moist roe rice",
-        soyCrab_price: "₩25,000",
+        octopusRice_name: "Spicy Octopus Rice",
+        octopusRice_desc: "Stir-fried spicy octopus served over rice",
+        octopusRice_price: "₩16,000",
 
-        spicyCrab_name: "Spicy Marinated Crab + Soft Tofu",
-        spicyCrab_desc: "Sweet–spicy seasoning soaked into the crab, balanced with soft tofu",
-        spicyCrab_price: "₩17,000",
+        softTofuStew_name: "Soft Tofu Stew",
+        softTofuStew_desc: "Soft tofu and vegetables cooked with spicy seasoning",
+        softTofuStew_price: "₩10,000",
 
-        lunchSet_name: "Lunch Special Spicy Crab + Soft Tofu",
-        lunchSet_desc: "Great value at noon—well-balanced pairing of spicy crab and soft tofu",
-        lunchSet_price: "₩10,000",
+        soyMilkNoodles_name: "Cold Soy Noodles",
+        soyMilkNoodles_desc: "Noodles served in cold water blended with ground soybeans (summer only)",
+        soyMilkNoodles_price: "₩10,000",
 
-        grilledPollock_name: "Grilled Dried Pollock",
-        grilledPollock_desc: "Crispy outside and moist inside with a nutty aroma",
-        grilledPollock_price: "₩11,000",
+        spicyCrab_name: "Spicy Marinated Crab",
+        spicyCrab_desc: "Fresh crab mixed with spicy seasoning",
+        spicyCrab_price: "₩20,000",
 
-        steamedPollock_name: "Braised Dried Pollock",
-        steamedPollock_desc: "Tender pollock infused with sauce for a savory kick",
-        steamedPollock_price: "₩11,000",
+        soyCrab_name: "Soy-Marinated Crab",
+        soyCrab_desc: "Crab matured in soy sauce boiled with various ingredients, then cooled",
+        soyCrab_price: "₩30,000",
+
+        grilledPollock_name: "Grilled Pollock",
+        grilledPollock_desc: "Pollock seasoned and grilled",
+        grilledPollock_price: "₩12,000",
 
         stirOctopus_name: "Stir-fried Octopus",
-        stirOctopus_desc: "Chewy octopus in a spicy stir-fry—great with rice or drinks",
-        stirOctopus_price: "₩30,000",
-
-        acorn_name: "Acorn Jelly",
-        acorn_desc: "Toasty acorn jelly with tangy sauce for a clean finish",
-        acorn_price: "₩10,000",
-
-        bossamM_name: "Bossam (M)",
-        bossamM_desc: "Tender boiled pork with tangy, crunchy kimchi—classic style",
-        bossamM_price: "₩30,000",
-
-        bossamL_name: "Bossam (L)",
-        bossamL_desc: "Tender boiled pork with tangy, crunchy kimchi—classic style",
-        bossamL_price: "₩40,000",
-
-        pajeon_name: "Scallion Pancake (Pajeon)",
-        pajeon_desc: "Seafood and scallions—crispy edges, soft center",
-        pajeon_price: "₩15,000",
-
-        fishJeon_name: "Pan-fried Fish (Jeon)",
-        fishJeon_desc: "Thin-battered fresh fish, clean and mild",
-        fishJeon_price: "₩20,000",
+        stirOctopus_desc: "Octopus stir-fried in spicy seasoning",
+        stirOctopus_price: "₩35,000",
 
         pollockJeon_name: "Pollock Jeon",
-        pollockJeon_desc: "Soft pollock pan-fried to a nutty, delicate bite",
-        pollockJeon_price: "₩20,000",
+        pollockJeon_desc: "Pan-fried pollock with flour batter and eggs",
+        pollockJeon_price: "₩25,000",
+
+        pajeon_name: "Pajeon (Scallion Pancake)",
+        pajeon_desc: "Korean pancake made with scallions and seafood",
+        pajeon_price: "₩15,000",
+
+        fishJeon_name: "Fish Jeon",
+        fishJeon_desc: "Thinly pan-fried cod or pollock with egg batter",
+        fishJeon_price: "₩25,000",
+
+        oysterJeon_name: "Oyster Jeon",
+        oysterJeon_desc: "Pan-fried oysters coated in batter (winter only)",
+        oysterJeon_price: "₩25,000",
+
+        acorn_name: "Seasoned Acorn Jelly",
+        acorn_desc: "Acorn jelly mixed with vegetables and seasoning",
+        acorn_price: "₩12,000",
+
+        bossamM_name: "Bossam (Medium)",
+        bossamM_desc: "Pork boiled with various ingredients",
+        bossamM_price: "₩40,000",
+
+        bossamL_name: "Bossam (Large)",
+        bossamL_desc: "Pork boiled with various ingredients",
+        bossamL_price: "₩50,000",
       }
+
     };
 
-    const $$ = (s, r=document)=>Array.from(r.querySelectorAll(s));
-    function setLang(lang){
+    const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+    function setLang(lang) {
       const dict = I18N[lang] || I18N.ko;
-      $$("[data-i18n]").forEach(el=>{
+      $$("[data-i18n]").forEach(el => {
         const key = el.getAttribute("data-i18n");
         if (key in dict) el.textContent = dict[key];
       });
       document.documentElement.lang = lang;
-      $$(".flag").forEach(b=>b.setAttribute("aria-current", b.dataset.lang===lang ? "true":"false"));
+      $$(".flag").forEach(b => b.setAttribute("aria-current", b.dataset.lang === lang ? "true" : "false"));
     }
-    $$(".flag").forEach(btn=>btn.addEventListener("click",()=>setLang(btn.dataset.lang)));
+    $$(".flag").forEach(btn => btn.addEventListener("click", () => setLang(btn.dataset.lang)));
     setLang("ko");
   </script>
 </body>
+
 </html>
